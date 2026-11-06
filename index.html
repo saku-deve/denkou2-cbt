@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二種電気工事士 筆記試験 模擬試験</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="apple-touch-icon" href="./app-icon.png">
+    <link rel="icon" type="image/png" href="./app-icon.png">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' }
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(8px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scaleUp: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        pop: {
+                            '0%': { transform: 'scale(0.85)' },
+                            '50%': { transform: 'scale(1.05)' },
+                            '100%': { transform: 'scale(1)' },
+                        },
+                        bounceShort: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-4px)' },
+                        }
+                    },
+                    animation: {
+                        fadeIn: 'fadeIn 0.35s ease-out forwards',
+                        scaleUp: 'scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        pop: 'pop 0.25s ease-out forwards',
+                        bounceShort: 'bounceShort 0.3s ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="h-full flex flex-col antialiased bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Header -->
+    <header class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700/80 sticky top-0 z-30 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-2.5 min-w-0">
+                <div class="bg-gradient-to-tr from-blue-600 to-blue-500 text-white p-2 rounded-xl flex items-center justify-center font-bold shrink-0 shadow-md shadow-blue-500/20">
+                    <i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                </div>
+                <div class="min-w-0">
+                    <h1 class="font-bold text-xs sm:text-base truncate leading-tight">第二種電気工事士 筆記試験</h1>
+                    <p class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 truncate">CBT模擬 (全50問 / 30問合格)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 shrink-0">
+                <button onclick="toggleDarkMode()" class="p-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 active:scale-95 transition" title="ダークモード切替">
+                    <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
+                </button>
+
+                <div id="header-timer-container" class="hidden items-center space-x-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1 rounded-xl shadow-inner">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-500 shrink-0"></i>
+                    <span id="timer-display" class="font-mono text-sm sm:text-base font-bold text-amber-600 dark:text-amber-400 transition-all">120:00</span>
+                </div>
+
+                <button id="finish-btn-header" onclick="openSubmitModal()" class="hidden bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-md shadow-emerald-600/20 items-center space-x-1 shrink-0 transition">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                    <span class="hidden sm:inline">終了・採点</span>
+                    <span class="sm:hidden">採点</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 flex flex-col justify-center">
+        
+        <!-- START SCREEN -->
+        <div id="screen-start" class="max-w-xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 shadow-2xl text-center animate-scaleUp">
+            <div class="inline-flex p-4 bg-blue-500/10 text-blue-500 rounded-2xl mb-4 animate-bounceShort">
+                <i data-lucide="file-check" class="w-10 h-10"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">第二種電気工事士 模擬試験</h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">本番のCBT試験と同じ条件・形式（50問・120分・完全ランダム）で実力を試します。</p>
+
+            <button onclick="startExam()" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 active:scale-[0.98] text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center space-x-2">
+                <span>試験を開始する</span>
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- EXAM SCREEN -->
+        <div id="screen-exam" class="hidden flex-1 grid grid-cols-1 lg:grid-cols-4 gap-4 h-full animate-fadeIn">
+            <div class="lg:col-span-3 flex flex-col bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden">
+                <div class="px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs sm:text-sm">
+                    <div class="flex items-center space-x-2">
+                        <span id="current-q-number" class="bg-blue-600 text-white font-bold px-3 py-1 rounded-lg shadow-sm">問 1 / 50</span>
+                        <span id="current-q-category" class="bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-2.5 py-0.5 rounded-lg text-xs font-medium">一般</span>
+                    </div>
+                    <button id="flag-btn" onclick="toggleFlag()" class="px-3 py-1.5 rounded-xl border transition-all active:scale-95 flex items-center space-x-1.5 font-medium">
+                        <i id="flag-icon" data-lucide="bookmark" class="w-4 h-4"></i>
+                        <span id="flag-btn-text">後で見返す</span>
+                    </button>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-6 flex-1 overflow-y-auto">
+                    <h3 id="question-text" class="text-base sm:text-lg font-medium leading-relaxed transition-all"></h3>
+                    <div id="choices-container" class="space-y-3"></div>
+                </div>
+
+                <div class="border-t border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between">
+                    <button id="prev-btn" onclick="navigateQuestion(-1)" class="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-95 px-4 py-2 rounded-xl text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition">前へ</button>
+                    <button id="next-btn" onclick="navigateQuestion(1)" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white px-5 py-2 rounded-xl text-sm font-semibold shadow-md shadow-blue-500/20 transition">次へ</button>
+                </div>
+            </div>
+
+            <!-- Palette Drawer -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col shadow-xl">
+                <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-sm flex items-center space-x-2">
+                        <i data-lucide="layout-grid" class="w-4 h-4 text-blue-500"></i>
+                        <span>解答状況一覧</span>
+                    </h4>
+                    <span id="palette-summary" class="text-xs text-slate-500 font-mono">0/50</span>
+                </div>
+                
+                <div id="question-palette" class="grid grid-cols-5 lg:grid-cols-5 gap-1.5 overflow-y-auto max-h-48 lg:max-h-full pr-1"></div>
+
+                <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-blue-600 inline-block"></span><span>解答済み</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 inline-block"></span><span>未解答</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-amber-400 border border-amber-500 inline-block"></span><span>見直し標識</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-blue-500/20 border-2 border-blue-500 inline-block"></span><span>現在地</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="screen-result" class="hidden max-w-4xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 shadow-2xl space-y-6 animate-scaleUp">
+            <div class="text-center space-y-2">
+                <div id="result-status-badge" class="inline-block px-5 py-1.5 rounded-full text-sm font-bold shadow-sm animate-pop">-</div>
+                <h2 class="text-3xl font-extrabold" id="result-title">採点結果</h2>
+                <div class="text-5xl font-black text-blue-600 dark:text-blue-400 py-2"><span id="result-score">0</span> <span class="text-xl text-slate-400">/ 50 点</span></div>
+                <button onclick="startExam()" class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 active:scale-95 text-white font-bold py-3.5 px-8 rounded-2xl shadow-lg shadow-blue-500/25 transition">もう一度挑戦する</button>
+            </div>
+            
+            <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                <h3 class="font-bold text-lg mb-4 flex items-center space-x-2">
+                    <i data-lucide="book-open" class="w-5 h-5 text-blue-500"></i>
+                    <span>解答・詳細解説一覧</span>
+                </h3>
+                <div id="review-list" class="space-y-4 text-left max-h-[500px] overflow-y-auto pr-2"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SUBMIT MODAL -->
+    <div id="submit-modal" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4 animate-scaleUp">
+            <h3 class="text-lg font-bold">試験を終了しますか？</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">終了すると採点され、解説を確認できます。</p>
+            <div class="flex space-x-3">
+                <button onclick="closeSubmitModal()" class="flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-95 py-2.5 rounded-xl text-sm font-semibold transition">続ける</button>
+                <button onclick="submitExam()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white py-2.5 rounded-xl text-sm font-semibold shadow-md shadow-emerald-600/20 transition">採点する</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'moon');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+        initTheme();
+
+        const ORIGINAL_QUESTIONS = [
+            { category: "電気理論", text: "図に示す交流回路において、抵抗 R = 8 Ω、リアクタンス XL = 6 Ω が直列に接続されている。この回路の全体インピーダンス Z [Ω] の値はいくらか。", options: ["6", "8", "10", "14"], answerIndex: 2, explanation: "直列回路のインピーダンスは Z = √(R² + XL²) で求められます。√(8² + 6²) = √(64 + 36) = √100 = 10 Ω となります。" },
+            { category: "電気理論", text: "単相2線式回路で、電線の抵抗が合計0.2 Ω、負荷電流が10 Aのとき、配線による電圧降下 [V] はいくらか。", options: ["1.0", "2.0", "4.0", "8.0"], answerIndex: 1, explanation: "単相2線式の電圧降下は V = 2 × I × r で計算されます。2 × 10 A × 0.1 Ω (片道) = 2.0 V です。" },
+            { category: "電気理論", text: "消費電力 1000 W の電熱器を 100 V の電源に接続したとき、流れる電流 [A] はいくらか。", options: ["5", "10", "15", "20"], answerIndex: 1, explanation: "電力 P = V × I より、I = P / V = 1000 / 100 = 10 A となります。" },
+            { category: "電気理論", text: "熱量 1 kW・h に相当する熱量 [kJ] の値として、正しいものはどれか。", options: ["360", "1000", "3600", "8600"], answerIndex: 2, explanation: "1 W = 1 J/s より、1 kW・h = 1000 W × 3600 秒 = 3,600,000 J = 3600 kJ です。" },
+            { category: "電気理論", text: "三相誘導電動機の同期回転速度 Ns [min⁻¹] を求める式として正しいものはどれか。（f: 周波数[Hz], p: 極数）", options: ["Ns = 120 f / p", "Ns = 60 f / p", "Ns = 120 p / f", "Ns = f / (120 p)"], answerIndex: 0, explanation: "同期回転速度は Ns = 120f / p で表されます。" },
+            { category: "電気理論", text: "100 V の回路に 20 Ω の抵抗を接続したとき、消費される電力 [W] はいくらか。", options: ["200", "500", "1000", "2000"], answerIndex: 1, explanation: "P = V² / R = 100² / 20 = 10000 / 20 = 500 W です。" },
+            { category: "電気理論", text: "自己インダクタンス 0.1 H のコイルに毎秒 50 A の割合で電流が変化するとき、コイルに生じる誘導起電力 [V] は。", options: ["2.5", "5.0", "10.0", "50.0"], answerIndex: 1, explanation: "誘導起電力 e = L × (ΔI / Δt) = 0.1 × 50 = 5.0 V です。" },
+            { category: "電気理論", text: "合成抵抗を求める問題で、6 Ω と 3 Ω の抵抗を並列に接続したときの合成抵抗 [Ω] は。", options: ["2", "4", "9", "18"], answerIndex: 0, explanation: "並列接続の合成抵抗は (R1×R2)/(R1+R2) = (6×3)/(6+3) = 18/9 = 2 Ω です。" },
+            { category: "配線設計", text: "低圧屋内配線で、極数2の分岐回路の銅線の最小太さ（直径）はいくらか。", options: ["1.2 mm", "1.6 mm", "2.0 mm", "2.6 mm"], answerIndex: 1, explanation: "分岐回路の電線（軟銅線）の太さは直径 1.6 mm 以上と定められています。" },
+            { category: "配線設計", text: "直径 2.0 mm の軟銅線の許容電流が 35 A のとき、金属管に3本収めて施設する場合の電流減少係数が 0.70 であるとき、電線1本あたりの許容電流 [A] は。", options: ["19.6", "24.5", "28.0", "35.0"], answerIndex: 1, explanation: "35 A × 0.70 = 24.5 A となります。" },
+            { category: "配線設計", text: "定格電流 20 A の配線用遮断器で保護される分岐回路に接続できるコンセントの定格電流はどれか。", options: ["15 A 以下", "15 A 以上 20 A 以下", "20 A 以上 30 A 以下", "30 A 専用"], answerIndex: 1, explanation: "20 A 分岐回路には 15 A または 20 A のコンセントを取り付けることができます。" },
+            { category: "配線設計", text: "住宅の屋内電路の対地電圧の制限において、原則として対地電圧の上限は何 V か。", options: ["100 V", "150 V", "200 V", "300 V"], answerIndex: 1, explanation: "住宅の対地電圧は原則として 150 V 以下に制限されています。" },
+            { category: "配線設計", text: "配線用遮断器の定格電流が 30 A の分岐回路における電線の最小太さは（直径または断面積）。", options: ["直径 1.6 mm", "直径 2.0 mm", "直径 2.6 mm (断面積 5.5 mm²)", "断面積 8.0 mm²"], answerIndex: 2, explanation: "30 A 分岐回路の電線は直径 2.6 mm（または 5.5 mm²）以上が必要です。" },
+            { category: "配線設計", text: "低圧屋内配線の金属管工事において、電線に軟銅線を使用する場合、許容電流を求めるための電線の最小太さは直径何 mm 以上か。", options: ["1.2 mm", "1.6 mm", "2.0 mm", "2.6 mm"], answerIndex: 1, explanation: "金属管工事でも電線の最小太さは原則 1.6 mm 以上です。" },
+            { category: "配線設計", text: "合成樹脂管工事（VE管）で支持点間の距離の最大値として、正しいものはどれか。", options: ["1.0 m", "1.5 m", "2.0 m", "3.0 m"], answerIndex: 1, explanation: "合成樹脂管の支持点間距離は 1.5 m 以下と定められています。" },
+            { category: "配線材料・器具", text: "リングスリーブ用手動圧着工具の「柄（え）の色」として正しいものはどれか。", options: ["赤色", "黄色", "青色", "緑色"], answerIndex: 1, explanation: "JIS規格において、リングスリーブ用圧着工具の柄の色は「黄色」と規定されています。" },
+            { category: "配線材料・器具", text: "「VVF」ケーブルの正式名称として正しいものはどれか。", options: ["600Vビニル絶縁ビニルシースケーブル平形", "600Vポリエチレン絶縁ケーブル", "600Vビニル絶縁電線", "屋外用ビニル絶縁電線"], answerIndex: 0, explanation: "VVFは 600V ビニル絶縁ビニルシースケーブル平形の略称です。" },
+            { category: "配線材料・器具", text: "コンクリート打ち込み配管などに使用される、オレンジ色の合成樹脂製可とう電線管の記号はどれか。", options: ["PF管", "CD管", "FEP管", "VE管"], answerIndex: 1, explanation: "コンクリート埋設専用の可とう管は CD管（Combined Duct）です。" },
+            { category: "配線材料・器具", text: "二種耐熱形ビニル絶縁電線の略称記号はどれか。", options: ["HIV", "OW", "EV", "KB"], answerIndex: 0, explanation: "耐熱形ビニル絶縁電線は HIV と表記されます。" },
+            { category: "配線材料・器具", text: "金属管工事において、管相互を接続する際に使用する継手（ジョイント）はどれか。", options: ["カップリング", "ブッシング", "ノーマルベンド", "サドル"], answerIndex: 0, explanation: "金属管同士をつなぐにはカップリングを使用します。" },
+            { category: "配線材料・器具", text: "金属管の端部に取り付けて、電線の被覆が傷つくのを防ぐために用いるものはどれか。", options: ["ロックナット", "ブッシング", "ターミナルキャップ", "ユニバーサル"], answerIndex: 1, explanation: "管端のバリや損傷から電線を守るためブッシングを取り付けます。" },
+            { category: "配線材料・器具", text: "ライティングダクト工事で使用できない器具はどれか。", options: ["ライティングダクト用ペンダント", "ライティングダクト用スポットライト", "一般の引掛シーリング（直接接続）", "専用の照明器具"], answerIndex: 2, explanation: "ライティングダクトには専用のアタッチメント付き器具以外は直接接続できません。" },
+            { category: "施工方法", text: "D種接地工事の接地抵抗値は、原則として何 Ω 以下でなければならないか。", options: ["10 Ω", "50 Ω", "100 Ω", "500 Ω"], answerIndex: 2, explanation: "D種接地工事の接地抵抗値は 100 Ω 以下です。" },
+            { category: "施工方法", text: "D種接地工事において、接地線として使用する軟銅線の最小太さ（直径）はいくらか。", options: ["1.2 mm", "1.6 mm", "2.0 mm", "2.6 mm"], answerIndex: 1, explanation: "D種接地工事の接地線は直径 1.6 mm 以上が必要です。" },
+            { category: "施工方法", text: "木造住宅の隠蔽場所で、乾燥した場所の配線工事として「施工できない」ものはどれか。", options: ["VVFケーブル工事", "金属管工事", "合成樹脂管工事", "平形保護層工事"], answerIndex: 3, explanation: "平形保護層工事はカーペット下などの床面用であり、天井裏等の隠蔽場所には施工できません。" },
+            { category: "施工方法", text: "金属管工事における金属管の曲げ加工で、管の内側の半径は管の「内径」の何倍以上としなければならないか。", options: ["3倍", "4倍", "6倍", "8倍"], answerIndex: 2, explanation: "金属管の曲げ半径は管内径の 6 倍以上が必要です。" },
+            { category: "施工方法", text: "合成樹脂管（VE管）を接着剤で接続する場合の挿入深さは、管の外径の何倍以上か。", options: ["0.8倍", "1.2倍", "1.5倍", "2.0倍"], answerIndex: 0, explanation: "接着剤を使用する場合は外径の 0.8 倍以上、使用しない場合は 1.2 倍以上です。" },
+            { category: "施工方法", text: "ケーブルを造営材の側面に沿って取り付ける場合の支持点間距離の最大値は。", options: ["1.0 m", "1.5 m", "2.0 m", "3.0 m"], answerIndex: 2, explanation: "ケーブル工事の支持点間距離は 2.0 m 以下です。" },
+            { category: "検査・測定", text: "使用電圧 100 V の低圧屋内配線の絶縁抵抗値として、電気設備技術基準で定められている最小値 [MΩ] は。", options: ["0.1 MΩ", "0.2 MΩ", "0.4 MΩ", "1.0 MΩ"], answerIndex: 0, explanation: "対地電圧 150 V 以下の電路の絶縁抵抗は 0.1 MΩ 以上が必要です。" },
+            { category: "検査・測定", text: "接地抵抗を測定するために使用する測定器の名称はどれか。", options: ["回路計（テスタ）", "絶縁抵抗計（メガー）", "接地抵抗計（アーステスタ）", "検電器"], answerIndex: 2, explanation: "接地抵抗の測定には接地抵抗計（アーステスタ）を使用します。" },
+            { category: "検査・測定", text: "三相誘導電動機の回転方向（相順）を確認するために使用する測定器はどれか。", options: ["検相器", "検電器", "照度計", "回転計"], answerIndex: 0, explanation: "相順を確認するには検相器を使用します。" },
+            { category: "検査・測定", text: "回路計（テスタ）で抵抗を測定する際、最も適切な準備作業はどれか。", options: ["電源を切る（停電させる）", "回路に通電しておく", "交流電圧レンジにする", "負荷をすべて接続する"], answerIndex: 0, explanation: "抵抗測定時はテスタ自体の電池で測定するため、必ず被測定回路の電源を切る必要があります。" },
+            { category: "検査・測定", text: "絶縁抵抗計（メガー）を用いて絶縁抵抗を測定するとき、正しい取扱いはどれか。", options: ["活線状態で測定する", "測定端子に触れながら測定する", "必ず停電させてから測定する", "電子機器は外さずそのまま測定する"], answerIndex: 2, explanation: "絶縁抵抗計は高電圧を印加するため、必ず停電状態を確認して測定します。" },
+            { category: "法令", text: "電気工事士法において、第二種電気工事士が従事できる作業の範囲はどれか。", options: ["自家用電気工作物（500kW未満）", "一般用電気工作物", "自家用電気工作物（2000kW未満）", "すべての電気工作物"], answerIndex: 1, explanation: "第二種電気工事士は一般用電気工作物の電気工事に従事できます。" },
+            { category: "法令", text: "一般用電気工作物の受電電圧の区分として正しいものはどれか。", options: ["低圧受電（600V以下）", "高圧受電（6000V）", "特別高圧受電", "制限なし"], answerIndex: 0, explanation: "一般用電気工作物は低圧（600V以下）で受電するものが対象です。" },
+            { category: "法令", text: "電気工事士免状の交付を行う機関（知事）はどこか。", options: ["経済産業大臣", "都道府県知事", "日本電気工事士協会", "電力会社"], answerIndex: 1, explanation: "免状は都道府県知事から交付されます。" },
+            { category: "法令", text: "電気用品安全法において、構造上火災や感電の恐れが大きい特定電気用品に表示されるマークの形はどれか。", options: ["丸形PSE", "ひし形PSE", "三角PSE", "四角PSE"], answerIndex: 1, explanation: "特定電気用品には「ひし形のPSEマーク」が表示されます。" },
+            { category: "法令", text: "電気工事士法違反により、免状の返納を命じられることがあるのは誰の処分に基づくか。", options: ["経済産業大臣", "都道府県知事", "警察署長", "市区町村長"], answerIndex: 1, explanation: "免状を交付した都道府県知事が返納を命じることができます。" },
+            { category: "配線図", text: "配線図記号で「位置表示灯内蔵スイッチ（ホタルスイッチ）」を表す傍記記号はどれか。", options: ["H", "L", "W", "3"], answerIndex: 0, explanation: "ホタルスイッチは H と傍記されます（Lは確認表示灯）。" },
+            { category: "配線図", text: "配線図記号で「3路スイッチ」を表す数字はどれか。", options: ["1", "2", "3", "4"], answerIndex: 2, explanation: "3路スイッチは 3 と表記されます。" },
+            { category: "配線図", text: "配線図記号で「接地端子付コンセント」を表す傍記文字はどれか。", options: ["E", "ET", "EL", "EX"], answerIndex: 1, explanation: "接地端子付は ET、接地極付は E です。" },
+            { category: "配線図", text: "配線図において、プルボックスを表す略称記号はどれか。", options: ["V", "PB", "IB", "HB"], answerIndex: 1, explanation: "プルボックスは PB (Pull Box) です。" },
+            { category: "配線図", text: "配線図において、漏電遮断器を表す略称はどれか。", options: ["B", "BE", "ELB", "MCB"], answerIndex: 2, explanation: "漏電遮断器は ELB (Earth Leakage Breaker) です。" },
+            { category: "配線図", text: "配線図記号で「タイムスイッチ」を表す傍記記号はどれか。", options: ["T", "TS", "TIMER", "S"], answerIndex: 1, explanation: "タイムスイッチは TS と表記されます。" },
+            { category: "一般知識", text: "感電事故防止のために最も効果的な保護装置はどれか。", options: ["配線用遮断器", "感電防止用漏電遮断器", "ヒューズ", "サーマルリレー"], answerIndex: 1, explanation: "漏電による感電防止には、高感度高速形の漏電遮断器の設置が極めて有効です。" },
+            { category: "電気理論", text: "三相交流のスター結線（Y結線）において、線間電圧は相電圧の何倍か。", options: ["1倍", "√2倍", "√3倍", "3倍"], answerIndex: 2, explanation: "Y結線では線間電圧は相電圧の √3 倍（約1.732倍）になります。" },
+            { category: "配線材料・器具", text: "電線を相互に接続する場合、接続部の電気抵抗はどうしなければならないか。", options: ["増加させる", "増加させない（同等以下にする）", "2倍にする", "規定はない"], answerIndex: 1, explanation: "電線の接続によって電気抵抗を増加させてはならないという原則があります。" },
+            { category: "施工方法", text: "金属管工事において、配管の1区間あたりの屈曲箇所は、原則として最大何箇所以下とすることが望ましいか。", options: ["2箇所", "3箇所", "4箇所", "制限なし"], answerIndex: 1, explanation: "電線の引き入れを容易にするため、1区間の曲がりは 3 箇所以下とします。" },
+            { category: "検査・測定", text: "単相3線式 100/200V 回路において、中性線と各電圧線間の電圧は正常時何 V か。", options: ["どちらも 100 V", "片方が 100 V、もう片方が 200 V", "どちらも 200 V", "どちらも 0 V"], answerIndex: 0, explanation: "単相3線式の中性線と各外線間の電圧はどちらも 100 V です。" },
+            { category: "法令", text: "電気工事士が電気工事の作業に従事するとき、携帯していなければならないものはどれか。", options: ["住民票", "電気工事士免状", "健康診断書", "印鑑"], answerIndex: 1, explanation: "電気工事士法により、作業に従事する際は電気工事士免状を携帯していなければなりません。" }
+        ];
+
+        const OPTION_LABELS = ["イ", "ロ", "ハ", "ニ"];
+        let examQuestions = [], userAnswers = {}, flaggedQuestions = {}, currentQIndex = 0, secondsLeft = 120 * 60, timerInterval = null;
+
+        function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+        function startExam() {
+            examQuestions = shuffle(ORIGINAL_QUESTIONS).map(q => {
+                const opts = shuffle(q.options.map((text, idx) => ({ text, correct: idx === q.answerIndex })));
+                return { ...q, options: opts.map(o => o.text), answerIndex: opts.findIndex(o => o.correct) };
+            });
+            userAnswers = {}; flaggedQuestions = {}; currentQIndex = 0; secondsLeft = 120 * 60;
+
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-exam').classList.remove('hidden');
+            document.getElementById('header-timer-container').style.display = 'flex';
+            document.getElementById('finish-btn-header').style.display = 'flex';
+
+            renderPalette();
+            loadQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsLeft--;
+                let m = Math.floor(secondsLeft / 60), s = secondsLeft % 60;
+                const timerDisplay = document.getElementById('timer-display');
+                timerDisplay.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                
+                // 残り10分以下で点滅表示アニメーション追加
+                if (secondsLeft < 600) {
+                    timerDisplay.classList.add('text-rose-500', 'animate-pulse');
+                    timerDisplay.classList.remove('text-amber-600', 'dark:text-amber-400');
+                } else {
+                    timerDisplay.classList.remove('text-rose-500', 'animate-pulse');
+                    timerDisplay.classList.add('text-amber-600', 'dark:text-amber-400');
+                }
+
+                if (secondsLeft <= 0) { clearInterval(timerInterval); submitExam(); }
+            }, 1000);
+        }
+
+        function loadQuestion(idx) {
+            currentQIndex = idx;
+            const q = examQuestions[idx];
+            document.getElementById('current-q-number').textContent = `問 ${idx + 1} / 50`;
+            document.getElementById('current-q-category').textContent = q.category;
+            
+            const qText = document.getElementById('question-text');
+            qText.classList.remove('animate-fadeIn');
+            void qText.offsetWidth; // リフロー発生によるアニメーション再発火
+            qText.textContent = q.text;
+            qText.classList.add('animate-fadeIn');
+
+            // 「後で見返す」ボタン状態
+            const isFlagged = !!flaggedQuestions[idx];
+            const flagBtn = document.getElementById('flag-btn');
+            if (isFlagged) {
+                flagBtn.className = "px-3 py-1.5 rounded-xl border text-xs flex items-center space-x-1.5 font-bold bg-amber-400 border-amber-500 text-slate-900 shadow-md transition-all active:scale-95";
+                document.getElementById('flag-btn-text').textContent = '見直し中';
+            } else {
+                flagBtn.className = "px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs flex items-center space-x-1.5 transition-all active:scale-95";
+                document.getElementById('flag-btn-text').textContent = '後で見返す';
+            }
+
+            const container = document.getElementById('choices-container');
+            container.innerHTML = '';
+            q.options.forEach((opt, oIdx) => {
+                const selected = userAnswers[idx] === oIdx;
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-3.5 rounded-2xl border transition-all active:scale-[0.99] flex items-start space-x-3.5 ${
+                    selected 
+                        ? 'bg-blue-500/10 border-blue-500 font-medium text-blue-600 dark:text-blue-300 ring-2 ring-blue-500/20 shadow-md' 
+                        : 'border-slate-200 dark:border-slate-700/80 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:border-slate-300 dark:hover:border-slate-600'
+                }`;
+                btn.onclick = () => { userAnswers[idx] = oIdx; loadQuestion(idx); updatePaletteItem(idx); };
+                btn.innerHTML = `<span class="w-7 h-7 rounded-xl ${selected ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'} flex items-center justify-center font-bold text-xs shrink-0 transition-all">${OPTION_LABELS[oIdx]}</span><span class="text-sm flex-1 pt-1 leading-relaxed">${opt}</span>`;
+                container.appendChild(btn);
+            });
+            
+            document.getElementById('prev-btn').disabled = idx === 0;
+            document.getElementById('next-btn').textContent = idx === 49 ? '確認画面へ' : '次へ';
+            document.getElementById('next-btn').onclick = idx === 49 ? openSubmitModal : () => navigateQuestion(1);
+            updatePalette();
+            if(window.lucide) lucide.createIcons();
+        }
+
+        function navigateQuestion(dir) { if(currentQIndex + dir >= 0 && currentQIndex + dir < 50) loadQuestion(currentQIndex + dir); }
+        
+        function toggleFlag() { 
+            flaggedQuestions[currentQIndex] = !flaggedQuestions[currentQIndex]; 
+            const icon = document.getElementById('flag-icon');
+            if (icon) icon.classList.add('animate-bounceShort');
+            loadQuestion(currentQIndex);
+            updatePaletteItem(currentQIndex);
+        }
+
+        function renderPalette() {
+            const pal = document.getElementById('question-palette');
+            pal.innerHTML = '';
+            for(let i=0; i<50; i++) {
+                const btn = document.createElement('button');
+                btn.id = `pal-${i}`;
+                btn.onclick = () => loadQuestion(i);
+                pal.appendChild(btn);
+                updatePaletteItem(i);
+            }
+        }
+
+        function updatePaletteItem(i) {
+            const btn = document.getElementById(`pal-${i}`);
+            if(!btn) return;
+            const answered = userAnswers[i] !== undefined;
+            const isFlagged = !!flaggedQuestions[i];
+            const current = i === currentQIndex;
+
+            let cls = "h-8 w-full rounded-xl text-xs font-bold border transition-all relative flex items-center justify-center active:scale-95 ";
+            if(current) cls += "border-2 border-blue-500 bg-blue-500/20 text-blue-600 dark:text-blue-300 shadow-sm animate-pop ";
+            else if(answered) cls += "bg-blue-600 border-blue-500 text-white shadow-sm ";
+            else cls += "bg-slate-100 dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-500 hover:border-slate-400 ";
+
+            btn.className = cls;
+            btn.innerHTML = `${i + 1}`;
+
+            if(isFlagged) {
+                const badge = document.createElement('span');
+                badge.className = "absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-400 border border-amber-500 rounded-full animate-pop";
+                btn.appendChild(badge);
+            }
+        }
+
+        function updatePalette() { 
+            const answeredCount = Object.keys(userAnswers).length;
+            document.getElementById('palette-summary').textContent = `${answeredCount}/50`;
+            for(let i=0; i<50; i++) updatePaletteItem(i); 
+        }
+
+        function openSubmitModal() { document.getElementById('submit-modal').classList.remove('hidden'); }
+        function closeSubmitModal() { document.getElementById('submit-modal').classList.add('hidden'); }
+
+        function submitExam() {
+            clearInterval(timerInterval);
+            closeSubmitModal();
+            let correct = 0;
+            examQuestions.forEach((q, i) => { if(userAnswers[i] === q.answerIndex) correct++; });
+
+            document.getElementById('screen-exam').classList.add('hidden');
+            document.getElementById('header-timer-container').style.display = 'none';
+            document.getElementById('finish-btn-header').style.display = 'none';
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            const passed = correct >= 30;
+            const badge = document.getElementById('result-status-badge');
+            badge.className = `inline-block px-5 py-1.5 rounded-full text-sm font-bold shadow-md animate-scaleUp ${passed ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white'}`;
+            badge.textContent = passed ? '合格 (30問以上正解)' : '不合格 (30問未満)';
+            document.getElementById('result-score').textContent = correct;
+
+            const review = document.getElementById('review-list');
+            review.innerHTML = '';
+            examQuestions.forEach((q, i) => {
+                const u = userAnswers[i];
+                const ok = u === q.answerIndex;
+                const userChoiceStr = u !== undefined ? `${OPTION_LABELS[u]}. ${q.options[u]}` : "未解答";
+                const correctChoiceStr = `${OPTION_LABELS[q.answerIndex]}. ${q.options[q.answerIndex]}`;
+
+                review.innerHTML += `
+                <div class="p-4 rounded-2xl border text-xs space-y-2.5 transition-all animate-fadeIn ${
+                    ok 
+                        ? 'bg-emerald-50/70 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800/60' 
+                        : 'bg-rose-50/70 dark:bg-rose-950/20 border-rose-300 dark:border-rose-800/60'
+                }">
+                    <div class="flex items-center justify-between font-bold border-b pb-2 ${ok ? 'border-emerald-200 dark:border-emerald-800/40' : 'border-rose-200 dark:border-rose-800/40'}">
+                        <span class="text-slate-800 dark:text-slate-200">問 ${i+1} (${q.category})</span>
+                        <span class="px-3 py-0.5 rounded-full text-[11px] font-bold shadow-sm ${
+                            ok 
+                                ? 'bg-emerald-500 text-white' 
+                                : 'bg-rose-500 text-white'
+                        }">
+                            ${ok ? '✓ 正解' : '✕ 不正解'}
+                        </span>
+                    </div>
+                    <div class="font-medium text-slate-900 dark:text-slate-100 text-sm">${q.text}</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 p-3 rounded-xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/60 shadow-inner">
+                        <div><span class="text-slate-500">あなたの解答:</span> <span class="font-bold ${ok ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">${userChoiceStr}</span></div>
+                        <div><span class="text-slate-500">正解:</span> <span class="font-bold text-emerald-600 dark:text-emerald-400">${correctChoiceStr}</span></div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-blue-500/10 text-slate-800 dark:text-slate-200 border border-blue-500/20">
+                        <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1">【詳細解説】</span>${q.explanation}
+                    </div>
+                </div>`;
+            });
+            if(window.lucide) lucide.createIcons();
+        }
+
+        window.onload = () => { if(window.lucide) lucide.createIcons(); };
+    </script>
+</body>
+</html>

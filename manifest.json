@@ -1,0 +1,22 @@
+{
+  "name": "第二種電気工事士 模擬試験",
+  "short_name": "電工2種模試",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "icons": [
+  {
+    "src": "image/app-icon.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "any"
+  },
+  {
+    "src": "image/app-icon.png",
+    "sizes": "192x192",
+    "type": "image/png",
+    "purpose": "any"
+  }
+]
+}
