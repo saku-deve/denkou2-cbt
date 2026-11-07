@@ -1,6 +1,6 @@
-# 第二種電気工事士筆記試験 CBT模擬試験Webアプリ (denkou2-cbt)
+# 第二種電気工事士 CBT模擬試験Webアプリ (denkou2-cbt)
 
-第二種電気工事士の筆記試験対策が行える、CBT（Computer Based Testing）方式対応のオープンソース模擬試験Webアプリケーションです。
+第二種電気工事士の試験対策が行える、CBT（Computer Based Testing）方式対応のオープンソース模擬試験Webアプリケーションです。
 
 ## 🌟 主な特徴
 
